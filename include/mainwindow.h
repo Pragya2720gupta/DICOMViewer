@@ -9,6 +9,19 @@
 #include <vtkInteractorStyle.h>
 #include <vtkImageViewer2.h>
 #include <vtkDICOMImageReader.h>
+#include <vtkSTLReader.h>
+#include <vtkNew.h>
+#include <vtkActor.h>
+#include <vtkImageActor.h>
+#include <vtkProperty.h>
+#include <vtkNamedColors.h>
+#include <vtkTransform.h>
+#include <vtkTransformPolyDataFilter.h>
+#include <vtkVolume.h>
+#include <vtkVolumeProperty.h>
+#include <vtkFixedPointVolumeRayCastMapper.h>
+#include <vtkColorTransferFunction.h>
+#include <vtkPiecewiseFunction.h>
 
 namespace Ui {
 class MainWindow;
@@ -31,9 +44,18 @@ private:
     vtkSmartPointer<vtkInteractorStyle> mInteractorStyle;
     vtkSmartPointer<vtkDICOMImageReader> mReader;
     vtkSmartPointer<vtkImageViewer2> mViewer;
+    vtkSmartPointer<vtkTransform> toolTransform;
+    vtkSmartPointer<vtkActor> actor;
+    //vtkNew<vtkRenderWindowInteractor> mRenderWindowInteractor;
+
 
 public slots:
     void onBtnOpenFileClick();
+    void onBtnSTLToolFile();
+    void updateToolPosition();
+    void startToolMovement();
+
+
 };
 
 #endif // MAINWINDOW_H
