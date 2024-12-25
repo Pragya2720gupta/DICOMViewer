@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
 #include <vtkGenericOpenGLRenderWindow.h>
 #include <vtkRenderer.h>
 #include <QVTKInteractor.h>
@@ -22,6 +21,17 @@
 #include <vtkFixedPointVolumeRayCastMapper.h>
 #include <vtkColorTransferFunction.h>
 #include <vtkPiecewiseFunction.h>
+#include <vtkPolyDataMapper.h>
+#include "vtkSmartPointer.h"
+#include "vtkDICOMImageReader.h"
+#include "vtkImageData.h"
+#include "vtkImageViewer2.h"
+#include "vtkRenderer.h"
+#include "vtkRenderWindowInteractor.h"
+#include <QFileDialog>
+#include <iostream>
+#include<QMessageBox>
+#include <QTimer>
 
 namespace Ui {
 class MainWindow;
@@ -44,18 +54,17 @@ private:
     vtkSmartPointer<vtkInteractorStyle> mInteractorStyle;
     vtkSmartPointer<vtkDICOMImageReader> mReader;
     vtkSmartPointer<vtkImageViewer2> mViewer;
-    vtkSmartPointer<vtkTransform> toolTransform;
-    vtkSmartPointer<vtkActor> actor;
-    //vtkNew<vtkRenderWindowInteractor> mRenderWindowInteractor;
-
-
+    vtkSmartPointer<vtkTransform> mToolMover;
+    
+    bool mIncrementAngle;
+   
+    void updateToolPosition();
+    void startToolMovement();
+    
 public slots:
     void onBtnOpenFileClick();
     void onBtnSTLToolFile();
-    void updateToolPosition();
-    void startToolMovement();
-
-
+    void onBtnStartStopClicked();
 };
 
 #endif // MAINWINDOW_H
